@@ -1,4 +1,4 @@
-import { CATEGORIES } from "./FactList";
+import { CATEGORIES } from "../App";
 
 const CategoryFilter = () => {
     return (

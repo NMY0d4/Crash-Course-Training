@@ -1,4 +1,6 @@
-const Fact = ({ fact, categories: CATEGORIES }) => {
+import { CATEGORIES } from "../App";
+
+const Fact = ({ fact }) => {
     return (
         <li className="fact">
             <p>
