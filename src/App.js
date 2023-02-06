@@ -5,6 +5,7 @@ import FactList from "./components/FactList";
 import Header from "./components/Header";
 import NewFactForm from "./components/NewFactForm";
 import "./style.css";
+import Loader from "./components/Loader";
 
 const initialFacts = [
     {
@@ -53,16 +54,27 @@ const CATEGORIES = [
 const App = () => {
     const [showForm, setShowForm] = useState(false);
     const [facts, setFacts] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [currentCategory, setCurrentCategory] = useState("all");
 
     useEffect(() => {
         async function getFacts() {
-            let { data: facts, error } = await supabase
-                .from("facts")
-                .select("*");
-            setFacts(facts);
+            setIsLoading(true);
+
+            let query = supabase.from("facts").select("*");
+            if (currentCategory !== "all")
+                query = query.eq("category", currentCategory);
+
+            let { data: facts, error } = await query
+                .order("votesInteresting", { ascending: false })
+                .limit(1000);
+
+            if (!error) setFacts(facts);
+            else alert("There was a problem getting data");
+            setIsLoading(false);
         }
         getFacts();
-    }, []);
+    }, [currentCategory]);
 
     return (
         <Fragment>
@@ -72,8 +84,12 @@ const App = () => {
             ) : null}
 
             <main className="main">
-                <CategoryFilter />
-                <FactList facts={facts} categories={CATEGORIES} />
+                <CategoryFilter setCurrentCategory={setCurrentCategory} />
+                {isLoading ? (
+                    <Loader />
+                ) : (
+                    <FactList facts={facts} categories={CATEGORIES} />
+                )}
             </main>
         </Fragment>
     );
