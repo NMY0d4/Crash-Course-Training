@@ -108,6 +108,10 @@ h1 {
     }
 }
 
+.fact p {
+    max-width: 70%;
+}
+
 .tag {
     text-transform: uppercase;
     font-size: 14px;
