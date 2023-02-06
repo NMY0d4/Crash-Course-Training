@@ -1,5 +1,5 @@
 const NewFactForm = () => {
-    return <div>NewFactForm</div>;
+    return <form className="fact-form">Fact form</form>;
 };
 
 export default NewFactForm;
