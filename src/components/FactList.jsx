@@ -60,3 +60,4 @@ const FactList = () => {
 };
 
 export default FactList;
+export { CATEGORIES };
