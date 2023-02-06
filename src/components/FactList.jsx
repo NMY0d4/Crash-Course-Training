@@ -1,7 +1,7 @@
 import { CATEGORIES } from "../App";
 import Fact from "./Fact";
 
-const FactList = ({ facts }) => {
+const FactList = ({ facts, setFacts }) => {
     if (facts.length === 0) {
         return (
             <p className="message">
@@ -13,7 +13,12 @@ const FactList = ({ facts }) => {
         <section>
             <ul className="facts-list">
                 {facts.map((fact) => (
-                    <Fact key={fact.id} fact={fact} categories={CATEGORIES} />
+                    <Fact
+                        key={fact.id}
+                        fact={fact}
+                        setFacts={setFacts}
+                        categories={CATEGORIES}
+                    />
                 ))}
             </ul>
         </section>
